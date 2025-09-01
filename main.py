@@ -8,7 +8,14 @@ def main():
     dt = 0
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    Player.containers = (updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    print(player.containers)
 
     while True:
         for event in pygame.event.get():
@@ -17,8 +24,11 @@ def main():
 
         screen.fill("black")
 
-        player.update(dt)
-        player.draw(screen)
+
+        for thing in updatable:
+            thing.update(dt)
+        for thing in drawable:
+            thing.draw(screen)
 
         # updates entire screen
         pygame.display.flip()
